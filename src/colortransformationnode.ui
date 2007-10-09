@@ -1,0 +1,33 @@
+<ui version="4.0" >
+ <class>ColorTransformationNodeUi</class>
+ <widget class="QWidget" name="ColorTransformationNodeUi" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>274</width>
+    <height>236</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" >
+   <item>
+    <widget class="QLabel" name="m_colorTransformationLabel" >
+     <property name="text" >
+      <string>TextLabel</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" native="1" name="m_colorTransformationUi" />
+   </item>
+   <item>
+    <widget class="QListView" name="m_colorList" />
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
