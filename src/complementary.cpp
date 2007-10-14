@@ -1,5 +1,4 @@
 #include "complementary.h"
-#include <QWidget>
 
 Complementary::Complementary(QObject *parent)
     : ColorTransformation(parent)
@@ -19,8 +18,8 @@ QVector<Color> Complementary::getOutput(const QVector<Color> &input) const
         Color inputColor = input[0];
 
         Color workingColor = inputColor.convertToColorSpace(Color::sRgbHsv);
-        QVector<qreal> workingColorComponents = workingColor.components();
-        qreal hueValue = workingColorComponents[0];
+        QVector<double> workingColorComponents = workingColor.components();
+        double hueValue = workingColorComponents[0];
         hueValue += 180;
         if (hueValue >= 360)
             hueValue -= 360;
@@ -35,7 +34,7 @@ QVector<Color> Complementary::getOutput(const QVector<Color> &input) const
 
 QWidget *Complementary::ui()
 {
-    return new QWidget;
+    return NULL;
 }
 
 QString Complementary::name() const

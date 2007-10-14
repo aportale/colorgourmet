@@ -1,12 +1,16 @@
 #include "analogous.h"
+#include "analogousui.h"
 #include <QWidget>
 
 Analogous::Analogous(QObject *parent)
     : ColorTransformation(parent)
-    , m_includeInput(true)
-    , m_angle(15)
     , m_analogousColorsCount(4)
 {
+    m_ui = new AnalogousUi;
+    AnalogousUiController *controller = new AnalogousUiController(this);
+    controller->connectToModelAndView(this, m_ui);
+    setIncludeInput(true);
+    setAngle(15);
 }
 
 int Analogous::inputCount() const
@@ -22,15 +26,14 @@ QVector<Color> Analogous::getOutput(const QVector<Color> &input) const
         Color inputColor = input[0];
 
         Color workingColor = inputColor.convertToColorSpace(Color::sRgbHsv);
-        QVector<qreal> workingColorComponents = workingColor.components();
-        qreal hueOffset = -((m_analogousColorsCount / 2 + 1) * m_angle);
+        QVector<double> workingColorComponents = workingColor.components();
+        double hueOffset = -((m_analogousColorsCount / 2 + 1) * m_angle);
         workingColorComponents[0] = workingColorComponents[0] + hueOffset;
 
         for (int i = 0; i < m_analogousColorsCount; i++) {
-            qreal hueValue = workingColorComponents[0];
+            double hueValue = workingColorComponents[0];
 
             if (i == (m_analogousColorsCount / 2)) {
-                result.append(inputColor);
                 hueValue += m_angle;
                 if (includeInput())
                     result.append(inputColor);
@@ -44,7 +47,6 @@ QVector<Color> Analogous::getOutput(const QVector<Color> &input) const
             workingColorComponents[0] = hueValue;
             workingColor.setComponents(workingColorComponents);
             result.append(workingColor.convertToColorSpace(inputColor.colorSpace()));
-
         }
     }
 
@@ -53,7 +55,7 @@ QVector<Color> Analogous::getOutput(const QVector<Color> &input) const
 
 QWidget *Analogous::ui()
 {
-    return new QWidget;
+    return m_ui;
 }
 
 QString Analogous::name() const
@@ -69,15 +71,18 @@ bool Analogous::includeInput() const
 void Analogous::setIncludeInput(bool include)
 {
     m_includeInput = include;
+    emit includeInputChanged(m_includeInput);
+    emit outputChanged();
 }
 
-qreal Analogous::angle() const
+double Analogous::angle() const
 {
     return m_angle;
 }
 
-void Analogous::setAngle(qreal angle)
+void Analogous::setAngle(double angle)
 {
     m_angle = angle;
+    emit angleChanged(m_angle);
     emit outputChanged();
 }

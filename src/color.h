@@ -17,15 +17,18 @@ public:
     };
 
     Color();
-    Color(ColorSpace colorSpace, const QVector<qreal> &components);
+    Color(ColorSpace colorSpace, const QVector<double> &components);
 
-    void setComponents(const QVector<qreal> &components);
-    QVector<qreal> components() const;
-    void setComponentValue(int componentId, qreal value);
+    void setComponents(const QVector<double> &components);
+    QVector<double> components() const;
+    void setComponentValue(int componentId, double value);
+    double componentValue(int componentId) const;
     void setName(const QString &name);
     QString name() const;
     ColorSpace colorSpace() const;
-    QVector<qreal> pcsColor() const;
+    QString colorSpaceName() const;
+    static QString colorSpaceName(ColorSpace colorSpace);
+    QVector<double> pcsColor() const;
     Color convertToColorConversionSpace() const;
     Color convertToColorSpace(ColorSpace targetColorSpace) const;
     QString description() const;
@@ -33,7 +36,7 @@ public:
 
 private:
     ColorSpace m_colorSpace;
-    QVector<qreal> m_components;
+    QVector<double> m_components;
     QString m_name;
 
     void setColorSpace(ColorSpace colorSpace);

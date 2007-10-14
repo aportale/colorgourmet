@@ -6,6 +6,14 @@ ColorSourceUi::ColorSourceUi(QWidget *parent)
     setupUi(this);
 }
 
+void ColorSourceUi::setComponents(double component0, double component1, double component2, double component3)
+{
+    component0SpinBox->setValue(component0);
+    component1SpinBox->setValue(component1);
+    component2SpinBox->setValue(component2);
+//    component3SpinBox->setValue(component3);
+}
+
 void ColorSourceUi::on_component0SpinBox_valueChanged(double value)
 {
     emit componentChanged(0, value);
@@ -34,12 +42,24 @@ ColorSourceUiController::ColorSourceUiController(QObject *parent)
 void ColorSourceUiController::connectToModelAndView(QObject *model, QWidget *view)
 {
     Q_ASSERT(model);
-    connect(view, SIGNAL(componentChanged(int, qreal)), model, SLOT(setColorComponent(int, qreal)));
+    connect(view, SIGNAL(componentChanged(int, double)), model, SLOT(setColorComponent(int, double)));
+    connect(model, SIGNAL(colorChanged(const Color &)), SLOT(handleModelColorChanged(const Color &)));
+    connect(this, SIGNAL(colorChanged(double, double, double, double)), view, SLOT(setComponents(double, double, double, double)));
+}
+
+void ColorSourceUiController::handleModelColorChanged(const Color &color)
+{
+    QVector <double>components = color.components();
+    components.resize(4);
+    emit colorChanged(components[0], components[1], components[2], components[3]);
 }
 
 ColorSource::ColorSource(QObject *parent)
     : ColorTransformation(parent)
 {
+    ColorSourceUiController *controller = new ColorSourceUiController(this);
+    m_ui = new ColorSourceUi;
+    controller->connectToModelAndView(this, m_ui);
 }
 
 int ColorSource::inputCount() const
@@ -57,10 +77,7 @@ QVector<Color> ColorSource::getOutput(const QVector<Color> &input) const
 
 QWidget *ColorSource::ui()
 {
-    ColorSourceUiController *controller = new ColorSourceUiController(this);
-    ColorSourceUi *ui = new ColorSourceUi;
-    controller->connectToModelAndView(this, ui);
-    return ui;
+    return m_ui;
 }
 
 QString ColorSource::name() const
@@ -71,10 +88,11 @@ QString ColorSource::name() const
 void ColorSource::setColor(const Color &color)
 {
     m_color = color;
+    emit colorChanged(color);
     emit outputChanged();
 }
 
-void ColorSource::setColorComponent(int componentId, qreal value)
+void ColorSource::setColorComponent(int componentId, double value)
 {
     m_color.setComponentValue(componentId, value);
     emit outputChanged();

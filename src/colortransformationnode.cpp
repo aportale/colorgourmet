@@ -52,10 +52,9 @@ QWidget *ColorTransformationNode::ui()
     ui->m_colorList->setModel(colorModel());
     QWidget *transformationUi = m_transformation->ui();
     if (transformationUi) {
-        QHBoxLayout *transformationUiLayout = new QHBoxLayout;
-        transformationUiLayout->setMargin(0);
-        ui->m_colorTransformationUi->setLayout(transformationUiLayout);
-        transformationUiLayout->addWidget(transformationUi);
+        QBoxLayout *mainLayout = qobject_cast<QBoxLayout*>(ui->layout());
+        if (mainLayout)
+            mainLayout->insertWidget(1, transformationUi);
     }
     return ui;
 }

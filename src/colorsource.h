@@ -15,7 +15,10 @@ public:
     ColorSourceUi(QWidget *parent = 0);
 
 signals:
-    void componentChanged(int componentId, qreal value);
+    void componentChanged(int componentId, double value);
+
+public slots:
+    void setComponents(double component0, double component1, double component2, double component3);
 
 private slots:
     void on_component0SpinBox_valueChanged(double value);
@@ -31,6 +34,12 @@ class ColorSourceUiController : public QObject
 public:
     ColorSourceUiController(QObject *parent = 0);
     void connectToModelAndView(QObject *model, QWidget *view);
+
+signals:
+    void colorChanged(double component0, double component1, double component2, double component3);
+
+private slots:
+    void handleModelColorChanged(const Color &color);
 };
 
 class ColorSource : public ColorTransformation
@@ -48,13 +57,16 @@ public:
 
     Color color() const;
 
+signals:
+    void colorChanged(const Color &color);
+
 public slots:
     void setColor(const Color &color);
-    void setColorComponent(int componentId, qreal value);
+    void setColorComponent(int componentId, double value);
 
 private:
     Color m_color;
-    ColorSourceUiController *m_uiController;
+    QWidget *m_ui;
 };
 
 #endif

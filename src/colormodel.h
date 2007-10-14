@@ -13,6 +13,7 @@ public:
     void setColors(QVector<Color> *colors);
 
 private:
+    static QString toolTipForColor(const Color &color);
     QVector<Color> *m_colors;
 };
 
