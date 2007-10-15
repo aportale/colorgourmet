@@ -4,11 +4,11 @@
 
 Analogous::Analogous(QObject *parent)
     : ColorTransformation(parent)
-    , m_analogousColorsCount(4)
 {
     m_ui = new AnalogousUi;
     AnalogousUiController *controller = new AnalogousUiController(this);
     controller->connectToModelAndView(this, m_ui);
+    setAnalogousColorsCount(4);
     setIncludeInput(true);
     setAngle(15);
 }
@@ -33,11 +33,8 @@ QVector<Color> Analogous::getOutput(const QVector<Color> &input) const
         for (int i = 0; i < m_analogousColorsCount; i++) {
             double hueValue = workingColorComponents[0];
 
-            if (i == (m_analogousColorsCount / 2)) {
+            if (i == m_analogousColorsCount / 2)
                 hueValue += m_angle;
-                if (includeInput())
-                    result.append(inputColor);
-            }
 
             hueValue += m_angle;
             if (hueValue >= 360)
@@ -48,6 +45,8 @@ QVector<Color> Analogous::getOutput(const QVector<Color> &input) const
             workingColor.setComponents(workingColorComponents);
             result.append(workingColor.convertToColorSpace(inputColor.colorSpace()));
         }
+        if (includeInput())
+            result.insert(m_analogousColorsCount / 2, 1, inputColor);
     }
 
     return result;
@@ -63,15 +62,15 @@ QString Analogous::name() const
     return tr("Analogous");
 }
 
-bool Analogous::includeInput() const
+int Analogous::analogousColorsCount() const
 {
-    return m_includeInput;
+    return m_analogousColorsCount;
 }
 
-void Analogous::setIncludeInput(bool include)
+void Analogous::setAnalogousColorsCount(int count)
 {
-    m_includeInput = include;
-    emit includeInputChanged(m_includeInput);
+    m_analogousColorsCount = count;
+    emit analogousColorsCountChanged(m_analogousColorsCount);
     emit outputChanged();
 }
 
@@ -84,5 +83,17 @@ void Analogous::setAngle(double angle)
 {
     m_angle = angle;
     emit angleChanged(m_angle);
+    emit outputChanged();
+}
+
+bool Analogous::includeInput() const
+{
+    return m_includeInput;
+}
+
+void Analogous::setIncludeInput(bool include)
+{
+    m_includeInput = include;
+    emit includeInputChanged(m_includeInput);
     emit outputChanged();
 }

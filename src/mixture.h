@@ -6,8 +6,8 @@
 class Mixture : public ColorTransformation
 {
     Q_OBJECT
+    Q_PROPERTY(int stepsCount READ stepsCount WRITE setStepsCount)
     Q_PROPERTY(bool includeInput READ includeInput WRITE setIncludeInput)
-    Q_PROPERTY(int steps READ steps WRITE setSteps)
 
 public:
     Mixture(QObject *parent = 0);
@@ -17,14 +17,20 @@ public:
     QWidget *ui();
     QString name() const;
 
+signals:
+    void stepsCountChanged(int steps);
+    void includeInputChanged(bool include);
+
+public slots:
+    int stepsCount() const;
+    void setStepsCount(int steps);
     bool includeInput() const;
     void setIncludeInput(bool include);
-    int steps() const;
-    void setSteps(int steps);
 
 private:
+    int m_stepsCount;
     bool m_includeInput;
-    int m_steps;
+    QWidget *m_ui;
 };
 
 #endif

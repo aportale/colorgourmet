@@ -7,6 +7,7 @@ HEADERS += \
     analogousui.h \
     complementary.h \
     mixture.h \
+    mixtureui.h \
     colortransformationnode.h \
     colortransformationnodeui.h
 
@@ -19,6 +20,7 @@ SOURCES += \
     analogousui.cpp \
     complementary.cpp \
     mixture.cpp \
+    mixtureui.cpp \
     colortransformationnode.cpp \
     colortransformationnodeui.cpp \
     main.cpp
@@ -26,4 +28,5 @@ SOURCES += \
 FORMS += \
     colorsource.ui \
     analogous.ui \
+    mixture.ui \
     colortransformationnode.ui

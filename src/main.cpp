@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
     Complementary *complementary = new Complementary;
     ColorTransformationNode complementaryNode(complementary);
     complementaryNode.connectToSourceNode(&source1Node, 0);
-    nodesWidgetLayout->addWidget(complementaryNode.ui(), 1, 0);
+    nodesWidgetLayout->addWidget(complementaryNode.ui(), 1, 3);
 
     Analogous *analogous1 = new Analogous;
     analogous1->setIncludeInput(false);
@@ -49,15 +49,15 @@ int main(int argc, char *argv[])
     analogous2->setIncludeInput(true);
     analogous2->setAngle(30);
     ColorTransformationNode analogous2Node(analogous2);
-    analogous2Node.connectToSourceNode(&complementaryNode, 0);
+    analogous2Node.connectToSourceNode(&source1Node, 0);
     nodesWidgetLayout->addWidget(analogous2Node.ui(), 1, 2);
 
     Mixture *mixture = new Mixture;
     ColorTransformationNode mixtureNode(mixture);
-    mixture->setSteps(10);
+    mixture->setStepsCount(10);
     mixtureNode.connectToSourceNode(&source1Node, 0, 0);
     mixtureNode.connectToSourceNode(&source2Node, 0, 1);
-    nodesWidgetLayout->addWidget(mixtureNode.ui(), 1, 3);
+    nodesWidgetLayout->addWidget(mixtureNode.ui(), 1, 0);
 
     QScrollArea scrollArea;
     nodesWidget->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);

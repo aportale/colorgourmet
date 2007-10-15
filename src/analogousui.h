@@ -12,6 +12,8 @@ public:
     AnalogousUi(QWidget *parent = 0);
 
 signals:
+    void setAnalogousColorsCount(int count);
+    void analogousColorsCountChanged(int count);
     void setAngle(double angle);
     void angleChanged(double angle);
     void setIncludeInput(bool include);

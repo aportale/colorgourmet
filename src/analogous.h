@@ -17,21 +17,24 @@ public:
     QWidget *ui();
     QString name() const;
 
+    int analogousColorsCount() const;
     double angle() const;
     bool includeInput() const;
 
 signals:
+    void analogousColorsCountChanged(int count);
     void angleChanged(double angle);
     void includeInputChanged(bool include);
 
 public slots:
+    void setAnalogousColorsCount(int count);
     void setAngle(double angle);
     void setIncludeInput(bool include);
 
 private:
-    bool m_includeInput;
-    double m_angle;
     int m_analogousColorsCount;
+    double m_angle;
+    bool m_includeInput;
     QWidget *m_ui;
 };
 

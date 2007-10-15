@@ -1,10 +1,14 @@
 #include "mixture.h"
+#include "mixtureui.h"
 
 Mixture::Mixture(QObject *parent)
     : ColorTransformation(parent)
-    , m_includeInput(true)
-    , m_steps(4)
 {
+    m_ui = new MixtureUi;
+    MixtureUiController *controller = new MixtureUiController(this);
+    controller->connectToModelAndView(this, m_ui);
+    setStepsCount(4);
+    setIncludeInput(true);
 }
 
 int Mixture::inputCount() const
@@ -27,14 +31,14 @@ QVector<Color> Mixture::getOutput(const QVector<Color> &input) const
         double hDifference = (hRightColor - hLeftColor);
         if (hDifference > 360/2)
             hDifference =  180 - hDifference;
-        double hStepSize =  hDifference / (m_steps + 1);
-        double sStepSize = (rightColor.components()[1] - leftColor.components()[1]) / (m_steps + 1);
-        double vStepSize = (rightColor.components()[2] - leftColor.components()[2]) / (m_steps + 1);
+        double hStepSize =  hDifference / (m_stepsCount + 1);
+        double sStepSize = (rightColor.components()[1] - leftColor.components()[1]) / (m_stepsCount + 1);
+        double vStepSize = (rightColor.components()[2] - leftColor.components()[2]) / (m_stepsCount + 1);
 
         QVector<double> stepColorComponents;
         stepColorComponents = leftColor.components();
         Color stepColor(Color::sRgbHsv, stepColorComponents);
-        for (int i = 0; i < m_steps; i++) {
+        for (int i = 0; i < m_stepsCount; i++) {
             stepColorComponents[0] += hStepSize;
             stepColorComponents[1] += sStepSize;
             stepColorComponents[2] += vStepSize;
@@ -50,7 +54,7 @@ QVector<Color> Mixture::getOutput(const QVector<Color> &input) const
 
 QWidget *Mixture::ui()
 {
-    return NULL;
+    return m_ui;
 }
 
 QString Mixture::name() const
@@ -66,15 +70,18 @@ bool Mixture::includeInput() const
 void Mixture::setIncludeInput(bool include)
 {
     m_includeInput = include;
+    emit includeInputChanged(m_includeInput);
+    emit outputChanged();
 }
 
-int Mixture::steps() const
+int Mixture::stepsCount() const
 {
-    return m_steps;
+    return m_stepsCount;
 }
 
-void Mixture::setSteps(int steps)
+void Mixture::setStepsCount(int steps)
 {
-    m_steps = steps;
+    m_stepsCount = steps;
+    emit stepsCountChanged(steps);
     emit outputChanged();
 }
