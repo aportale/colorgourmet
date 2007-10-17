@@ -39,7 +39,7 @@ QString ColorModel::toolTipForColor(const Color &color)
     Color::ColorSpace colorSpaces[] = {Color::sRgb, Color::sRgbHsv};
 
     QString result = "<html><body><table cellpadding=\"2\">";
-    for (int i = 0; i < sizeof(colorSpaces)/sizeof(colorSpaces[0]); i++) {
+    for (size_t i = 0; i < sizeof(colorSpaces)/sizeof(colorSpaces[0]); i++) {
         QString row = "<tr>";
         row += QString("<th align=\"left\">%1</th>")
             .arg(Color::colorSpaceName(colorSpaces[i]));

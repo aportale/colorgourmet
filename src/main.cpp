@@ -4,9 +4,12 @@
 #include "complementary.h"
 #include "mixture.h"
 #include "colortransformationnode.h"
+#include "undostack.h"
+#include "mainwindow.h"
 #include <QtDebug>
 #include <QApplication>
 #include <QScrollArea>
+#include <QGridLayout>
 
 int main(int argc, char *argv[])
 {
@@ -59,10 +62,13 @@ int main(int argc, char *argv[])
     mixtureNode.connectToSourceNode(&source2Node, 0, 1);
     nodesWidgetLayout->addWidget(mixtureNode.ui(), 1, 0);
 
-    QScrollArea scrollArea;
+    QScrollArea *scrollArea = new QScrollArea;
     nodesWidget->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Maximum);
-    scrollArea.setWidget(nodesWidget);
-    scrollArea.show();
+    scrollArea->setWidget(nodesWidget);
+
+    MainWindow mainWindow;
+    mainWindow.setCentralWidget(scrollArea);
+    mainWindow.show();
 
     return a.exec();
 }
