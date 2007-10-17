@@ -15,11 +15,14 @@ public:
 
     virtual int inputCount() const = 0;
     virtual QVector<Color> getOutput(const QVector<Color> &input = QVector<Color>()) const = 0;
-    virtual QWidget *ui() = 0;
+    QWidget *ui();
     virtual QString name() const = 0;
 
 signals:
     void outputChanged();
+
+protected:
+    QWidget *m_ui;
 };
 
 #endif
