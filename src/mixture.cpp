@@ -52,11 +52,6 @@ QVector<Color> Mixture::getOutput(const QVector<Color> &input) const
     return result;
 }
 
-QWidget *Mixture::ui()
-{
-    return m_ui;
-}
-
 QString Mixture::name() const
 {
     return tr("Mixture");

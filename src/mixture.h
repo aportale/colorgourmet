@@ -14,7 +14,6 @@ public:
 
     int inputCount() const;
     QVector<Color> getOutput(const QVector<Color> &input = QVector<Color>()) const;
-    QWidget *ui();
     QString name() const;
 
 signals:
@@ -30,7 +29,6 @@ public slots:
 private:
     int m_stepsCount;
     bool m_includeInput;
-    QWidget *m_ui;
 };
 
 #endif

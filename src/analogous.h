@@ -2,6 +2,7 @@
 #define ANALOGOUS_H
 
 #include "colortransformation.h"
+#include <QUndoCommand>
 
 class Analogous : public ColorTransformation
 {
@@ -14,7 +15,6 @@ public:
 
     int inputCount() const;
     QVector<Color> getOutput(const QVector<Color> &input = QVector<Color>()) const;
-    QWidget *ui();
     QString name() const;
 
     int analogousColorsCount() const;
@@ -35,7 +35,6 @@ private:
     int m_analogousColorsCount;
     double m_angle;
     bool m_includeInput;
-    QWidget *m_ui;
 };
 
 #endif

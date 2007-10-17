@@ -12,7 +12,6 @@ public:
 
     int inputCount() const;
     QVector<Color> getOutput(const QVector<Color> &input = QVector<Color>()) const;
-    QWidget *ui();
     QString name() const;
 };
 

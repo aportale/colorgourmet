@@ -32,11 +32,6 @@ QVector<Color> Complementary::getOutput(const QVector<Color> &input) const
     return result;
 }
 
-QWidget *Complementary::ui()
-{
-    return NULL;
-}
-
 QString Complementary::name() const
 {
     return tr("Complementary");

@@ -1,13 +1,12 @@
 #include "analogous.h"
 #include "analogousui.h"
-#include <QWidget>
+#include "undostack.h"
+#include <QString>
 
 Analogous::Analogous(QObject *parent)
     : ColorTransformation(parent)
 {
-    m_ui = new AnalogousUi;
-    AnalogousUiController *controller = new AnalogousUiController(this);
-    controller->connectToModelAndView(this, m_ui);
+    m_ui = new AnalogousUi(this);
     setAnalogousColorsCount(4);
     setIncludeInput(true);
     setAngle(15);
@@ -50,11 +49,6 @@ QVector<Color> Analogous::getOutput(const QVector<Color> &input) const
     }
 
     return result;
-}
-
-QWidget *Analogous::ui()
-{
-    return m_ui;
 }
 
 QString Analogous::name() const
