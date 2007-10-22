@@ -1,24 +1,26 @@
 #include "mixtureui.h"
+#include "mixture.h"
+#include "mixturecommands.h"
+#include "undostack.h"
 
-MixtureUi::MixtureUi(QWidget *parent)
+MixtureUi::MixtureUi(Mixture *mixture, QWidget *parent)
     : QWidget(parent)
+    , m_mixture(mixture)
 {
     setupUi(this);
-    connect(this, SIGNAL(setStepsCount(int)), stepsCountSpinbox, SLOT(setValue(int)));
-    connect(stepsCountSpinbox, SIGNAL(valueChanged(int)), SIGNAL(stepsCountChanged(int)));
-    connect(this, SIGNAL(setIncludeInput(bool)), includeInputCheckBox, SLOT(setChecked(bool)));
-    connect(includeInputCheckBox, SIGNAL(clicked(bool)), SIGNAL(includeInputChanged(bool)));
+    connect(mixture, SIGNAL(stepsCountChanged(int)),
+        stepsCountSpinbox, SLOT(setValue(int)));
+    connect(mixture, SIGNAL(includeInputChanged(bool)),
+        includeInputCheckBox, SLOT(setChecked(bool)));
 }
 
-MixtureUiController::MixtureUiController(QObject *parent)
-    : QObject(parent)
+void MixtureUi::on_stepsCountSpinbox_valueChanged(int value)
 {
+    if (m_mixture->stepsCount() != value)
+        UndoStack::instance()->push(new MixtureStepsCountCommand(m_mixture, value));
 }
 
-void MixtureUiController::connectToModelAndView(QObject *model, QWidget *view)
+void MixtureUi::on_includeInputCheckBox_clicked(bool checked)
 {
-    connect(model, SIGNAL(stepsCountChanged(int)), view, SIGNAL(setStepsCount(int)));
-    connect(view, SIGNAL(stepsCountChanged(int)), model, SLOT(setStepsCount(int)));
-    connect(model, SIGNAL(includeInputChanged(bool)), view, SIGNAL(setIncludeInput(bool)));
-    connect(view, SIGNAL(includeInputChanged(bool)), model, SLOT(setIncludeInput(bool)));
+
 }

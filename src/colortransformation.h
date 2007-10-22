@@ -17,12 +17,14 @@ public:
     virtual QVector<Color> getOutput(const QVector<Color> &input = QVector<Color>()) const = 0;
     QWidget *ui();
     virtual QString name() const = 0;
+    int serialNumber() const;
 
 signals:
     void outputChanged();
 
 protected:
     QWidget *m_ui;
+    int m_serialNumber;
 };
 
 #endif

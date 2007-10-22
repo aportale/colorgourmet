@@ -39,6 +39,11 @@ ColorTransformationNode::~ColorTransformationNode()
     qDeleteAll(m_inputSources);
 }
 
+ColorTransformation* ColorTransformationNode::colorTransformation() const
+{
+    return m_transformation;
+}
+
 const QVector<Color> &ColorTransformationNode::colors() const
 {
     return m_colors;

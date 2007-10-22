@@ -6,13 +6,16 @@ HEADERS += \
     colorsourceui.h \
     analogous.h \
     analogousui.h \
+    analogouscommands.h \
     complementary.h \
     mixture.h \
     mixtureui.h \
+    mixturecommands.h \
     colortransformationnode.h \
     colortransformationnodeui.h \
     mainwindow.h \
     actionstoolbar.h \
+    undocommand.h \
     undostack.h
 
 SOURCES += \
@@ -23,13 +26,16 @@ SOURCES += \
     colorsourceui.cpp \
     analogous.cpp \
     analogousui.cpp \
+    analogouscommands.cpp \
     complementary.cpp \
     mixture.cpp \
     mixtureui.cpp \
+    mixturecommands.cpp \
     colortransformationnode.cpp \
     colortransformationnodeui.cpp \
     mainwindow.cpp \
     actionstoolbar.cpp \
+    undocommand.cpp \
     undostack.cpp \
     main.cpp
 

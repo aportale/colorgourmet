@@ -4,9 +4,7 @@
 Mixture::Mixture(QObject *parent)
     : ColorTransformation(parent)
 {
-    m_ui = new MixtureUi;
-    MixtureUiController *controller = new MixtureUiController(this);
-    controller->connectToModelAndView(this, m_ui);
+    m_ui = new MixtureUi(this);
     setStepsCount(4);
     setIncludeInput(true);
 }

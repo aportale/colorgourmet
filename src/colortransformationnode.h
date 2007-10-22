@@ -35,6 +35,7 @@ public:
     ColorTransformationNode(ColorTransformation *colorTransformation,
         QObject *parent = 0);
     ~ColorTransformationNode();
+    ColorTransformation* colorTransformation() const;
     const QVector<Color> &colors() const;
     QWidget *ui();
     QAbstractItemModel *colorModel() const;

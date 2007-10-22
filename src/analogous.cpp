@@ -1,6 +1,5 @@
 #include "analogous.h"
 #include "analogousui.h"
-#include "undostack.h"
 #include <QString>
 
 Analogous::Analogous(QObject *parent)
