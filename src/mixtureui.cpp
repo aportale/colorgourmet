@@ -22,5 +22,5 @@ void MixtureUi::on_stepsCountSpinbox_valueChanged(int value)
 
 void MixtureUi::on_includeInputCheckBox_clicked(bool checked)
 {
-
+    Q_UNUSED(checked)
 }

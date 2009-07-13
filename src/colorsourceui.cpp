@@ -8,6 +8,7 @@ ColorSourceUi::ColorSourceUi(QWidget *parent)
 
 void ColorSourceUi::setComponents(double component0, double component1, double component2, double component3)
 {
+    Q_UNUSED(component3)
     component0SpinBox->setValue(component0);
     component1SpinBox->setValue(component1);
     component2SpinBox->setValue(component2);

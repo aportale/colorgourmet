@@ -123,6 +123,7 @@ QString Color::description() const
 
 QColor Color::displayColor(int displayId) const
 {
+    Q_UNUSED(displayId)
     Color displayRgb = convertToColorSpace(sRgb);
     QVector<double> displayRgbComponents =
         displayRgb.components();
