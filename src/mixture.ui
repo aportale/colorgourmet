@@ -1,7 +1,8 @@
-<ui version="4.0" >
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
  <class>MixtureUi</class>
- <widget class="QWidget" name="MixtureUi" >
-  <property name="geometry" >
+ <widget class="QWidget" name="MixtureUi">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
@@ -9,49 +10,43 @@
     <height>300</height>
    </rect>
   </property>
-  <property name="windowTitle" >
+  <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" >
-   <property name="leftMargin" >
-    <number>0</number>
-   </property>
-   <property name="topMargin" >
-    <number>0</number>
-   </property>
-   <property name="rightMargin" >
-    <number>0</number>
-   </property>
-   <property name="bottomMargin" >
+  <layout class="QVBoxLayout">
+   <property name="margin">
     <number>0</number>
    </property>
    <item>
-    <layout class="QGridLayout" >
-     <item row="0" column="0" >
-      <widget class="QLabel" name="stepsCountLabel" >
-       <property name="text" >
+    <layout class="QFormLayout" name="formLayout">
+     <property name="fieldGrowthPolicy">
+      <enum>QFormLayout::ExpandingFieldsGrow</enum>
+     </property>
+     <item row="0" column="0">
+      <widget class="QLabel" name="stepsCountLabel">
+       <property name="text">
         <string>Amount of mixture steps</string>
        </property>
       </widget>
      </item>
-     <item row="0" column="1" >
-      <widget class="QSpinBox" name="stepsCountSpinbox" />
+     <item row="0" column="1">
+      <widget class="QSpinBox" name="stepsCountSpinbox"/>
      </item>
-     <item row="1" column="0" >
-      <widget class="QLabel" name="mixturePathLabel" >
-       <property name="text" >
+     <item row="1" column="0">
+      <widget class="QLabel" name="mixturePathLabel">
+       <property name="text">
         <string>Mixture path</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1" >
-      <widget class="QComboBox" name="mixturePathComboBox" />
+     <item row="1" column="1">
+      <widget class="QComboBox" name="mixturePathComboBox"/>
      </item>
     </layout>
    </item>
    <item>
-    <widget class="QCheckBox" name="includeInputCheckBox" >
-     <property name="text" >
+    <widget class="QCheckBox" name="includeInputCheckBox">
+     <property name="text">
       <string>Include input colors</string>
      </property>
     </widget>
